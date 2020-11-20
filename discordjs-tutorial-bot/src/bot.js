@@ -8,7 +8,9 @@ const prefix = "$";
 
 //ready is pulled from discord.js docs. Happens as soon as the bot logs in.
 client.on('ready', () => {
+    const channel = client.channels.cache.find(channel => channel.name === 'general');
     console.log(`${client.user.username} has logged in.`);
+    channel.send('I am back baby!!!');
 });
 
 
@@ -69,10 +71,17 @@ client.on('message', (message) => {
             .catch((err) => {
                 message.channel.send(`I don't have permission for that.`);
             })
-             
-        }
+
     }
-});
+    else if(commandName === 'late'){
+        const channel = client.channels.cache.get("778832909036814382");
+        if (!channel) return console.error("The channel does not exist!");
+        channel.join()
+        .then(connection => {console.log("Successfully connected.")})
+        .catch(e => {console.log(e)}); 
+};
+    }});
+
 
 //setting up roles with reactions
 client.on('messageReactionAdd', (reaction, user) => {
