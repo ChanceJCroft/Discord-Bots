@@ -78,6 +78,7 @@ client.on('message', (message) => {
         if (!channel) return console.error("The channel does not exist!");
         channel.join()
         .then(connection => {console.log("Successfully connected.")})
+        .then(message.channel('Time is up! Better be present.')) 
         .catch(e => {console.log(e)}); 
 };
     }});
@@ -126,5 +127,23 @@ client.on('messageReactionRemove', (reaction, user) => {
         }
     }
 });
+
+//TESTING BEYOND THIS POINT - NEEDS FURTHER REVIEW
+
+//creates a broadcast method and plays it with broadcast.play
+const broadcast = client.voice.createBroadcast();
+broadcast.play('MUSIC CLIP');
+// Play "music.mp3" in all voice connections that the client is in
+for (const connection of client.voice.connections.values()) {
+  connection.play(broadcast);
+}
+
+
+
+
+
+
+
+
 
 client.login(process.env.DISCORDJS_BOT);
